@@ -7,11 +7,12 @@ function App() {
   const [count, setCount] = useState(0)
 
   useEffect(() => {
+    console.log("useEffect starting")
     const intervalId = setInterval(() => {
-      setCount(c => c + 1); // ✅ Pass a state updater
+      setCount(c => c + 1); 
     }, 3000);
     return () => clearInterval(intervalId);
-  }, []); // ✅ Now count is not a dependency
+  }, []); 
 
 
   return (
