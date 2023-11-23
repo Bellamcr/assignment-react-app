@@ -1,29 +1,35 @@
 import { useState, useEffect } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 
 function App() {
   const [count, setCount] = useState(0);
+  const [running, setRunning] = useState(false);
 
   useEffect(() => {
     console.log("useEffect starting");
-    const intervalId = setInterval(() => {
-      setCount((c) => c + 1);
-    }, 3000);
-    return () => clearInterval(intervalId);
-  }, []);
+    let intervalId;
+    if (running) {
+      intervalId = setInterval(() => {
+        setCount((c) => c + 1);
+      }, 3000);
+    }
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [running]);
 
   return (
     <>
       <h1>Counter</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+          Count is {count}
         </button>
       </div>
-      <div>
-        <button onClick={() => setCount((count) => (count = 0))}>Reset</button>
+      <div className="buttons">
+        <button onClick={() => setCount(0)}>Reset</button>
+        <button onClick={() => setRunning(true)}>Start</button>
+        <button onClick={() => setRunning(false)}>Stop</button>
       </div>
     </>
   );
